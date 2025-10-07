@@ -10,24 +10,24 @@ CATEGORIES = {
             "bid envelopes and selection icons, balanced layout with subtle highlights"
         ],
         "style_variations": [
-            "flat iconographic vector art, light grey background, muted blues and greys, crisp details, centered elements",
-            "modern professional style, neutral tones with teal accents, faint grid patterns, balanced composition",
-            "corporate illustration, soft cyan highlights, grey background, dynamic shadows on documents"
+            "flat iconographic vector art, light grey background, muted greys, crisp details, centered elements",
+            "modern professional style, neutral tones with light grey accents, faint grid patterns, balanced composition",
+            "corporate illustration, soft grey highlights, light grey background, dynamic shadows on documents"
         ]
     },
     2: {
         "name": "Tax & VAT Specialist",
         "descriptive_elements": [
             "dense stack of books and ledgers with magnifying glass revealing tax forms and calculator",
-            "financial charts and compliance icons with gold coins, central focused layout",
+            "financial charts and compliance icons with grey coins, central focused layout",
             "audit documents and receipt stacks, precision scales and VAT ledgers",
             "tax icons and financial precision tools, compliance badges on desk",
-            "calculator beside charts and audit stamps, coin symbols scattered"
+            "calculator beside charts and audit stamps, grey coin symbols scattered"
         ],
         "style_variations": [
-            "corporate flat iconographic style, light grey background, muted reds and gold accents, soft shadows on stacks",
-            "modern crisp vector art, crimson highlights, dense layered composition with metallic glow",
-            "professional dynamic design, deep blue palette with amber accents, subtle gradients on forms"
+            "corporate flat iconographic style, light grey background, muted greys, soft shadows on stacks",
+            "modern crisp vector art, light grey highlights, dense layered composition",
+            "professional dynamic design, light grey palette, subtle gradients on forms"
         ]
     },
     3: {
@@ -40,9 +40,9 @@ CATEGORIES = {
             "profile cards and diversity icons, training elements in circular layout"
         ],
         "style_variations": [
-            "flat iconographic vector art, light blue gradient background, muted purples and beiges, gentle gradients on figures",
-            "vibrant modern style, lavender accents, circular dynamic layouts with warm skin tones",
-            "professional warm illustration, rose and tan tones, subtle curves on charts and icons"
+            "flat iconographic vector art, light grey background, muted greys, gentle gradients on figures",
+            "vibrant modern style, light grey accents, circular dynamic layouts",
+            "professional warm illustration, light grey tones, subtle curves on charts and icons"
         ]
     },
     4: {
@@ -55,9 +55,9 @@ CATEGORIES = {
             "technical icons and engineering flow, gadget overlays on diagrams"
         ],
         "style_variations": [
-            "flat iconographic vector art, light grey background, muted oranges and blues, crisp edges on blueprints",
-            "geometric modern design, navy highlights, layered vibrant composition with patterns",
-            "professional bold style, teal accents, metallic tones on gears and trackers"
+            "flat iconographic vector art, light grey background, muted greys, crisp edges on blueprints",
+            "geometric modern design, light grey highlights, layered composition with patterns",
+            "professional bold style, light grey accents, metallic tones on gears and trackers"
         ]
     },
     5: {
@@ -70,9 +70,9 @@ CATEGORIES = {
             "grid nodes and electrical tools, flow charts with voltage icons"
         ],
         "style_variations": [
-            "flat iconographic vector art, light grey background, muted yellows and greys, faint circuit patterns on wires",
-            "interconnected modern illustration, electric blue highlights, dynamic networked layout with glows",
-            "professional crisp design, amber accents, subtle shadows on components"
+            "flat iconographic vector art, light grey background, muted greys, faint circuit patterns on wires",
+            "interconnected modern illustration, light grey highlights, dynamic networked layout",
+            "professional crisp design, light grey accents, subtle shadows on components"
         ]
     },
     6: {
@@ -85,9 +85,9 @@ CATEGORIES = {
             "gavel and clause papers, courtroom sketches with seals"
         ],
         "style_variations": [
-            "flat iconographic vector art, light beige background, muted blacks and blues, subtle texture on books",
-            "strong modern corporate style, indigo accents, balanced dynamic composition with gold highlights",
-            "professional bold illustration, navy and silver tones, minimal depth on scales and gavels"
+            "flat iconographic vector art, light grey background, muted greys, subtle texture on books",
+            "strong modern corporate style, light grey accents, balanced dynamic composition",
+            "professional bold illustration, light grey tones, minimal depth on scales and gavels"
         ]
     }
 }
