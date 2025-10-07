@@ -13,7 +13,7 @@ def generate_cover_image(
     seed: int | str = "random",
     nologo: bool = True,
     private: bool = False,
-    enhance: bool = False,
+    enhance: bool = True,
     safe: bool = True,
     negative: str | None = None
 ) -> str:

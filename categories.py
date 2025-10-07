@@ -1,33 +1,33 @@
 # categories.py - Store category data with IDs, descriptions, and style guidelines
 CATEGORIES = {
-    1: {
+    1: { # Tender Specialist - (References your Image 1 & 2 for composition)
         "name": "Tender Specialist",
-        "description": "Documents and visuals related to tender processes, featuring bid proposal forms, contract outlines, and detailed evaluation checklists with a focus on procurement workflows.",
-        "style_guideline": "Illustration in a clean, flat, and iconographic style with a light grey background, professional illustration, muted green and blue palette."
+        "description": "Dynamic, centralized composition: Bid proposal forms, contract outlines, and evaluation checklists. Prominent magnifying glass over key data. Focus on procurement workflow and deadlines.",
+        "style_guideline": "Corporate flat iconographic vector art. Clean lines, bold shapes. Palette: muted greens, blues, greys. Light grey background. Crisp details for structure and forms."
     },
-    2: {
-    "name": "Tax & VAT Specialist",
-    "description": "Tax and VAT compliance illustration. Dense, central stack of books and ledgers. Include a large magnifying glass, tax forms, calculator, and gold coins.",
-    "style_guideline": "Corporate, flat iconographic style. Muted red, black, dark blue, and gold accents. High-resolution, dense composition, stacked central objects on a light grey background."
-},
-    3: {
+    2: { # Tax & VAT Specialist - (References your desired Image 2, similar to previous fix)
+        "name": "Tax & VAT Specialist",
+        "description": "Dense, central stack of books and ledgers. Large magnifying glass revealing tax forms, a calculator, and scattered gold coins. Emphasize financial precision and audit.",
+        "style_guideline": "Corporate flat iconographic style. Stacked central objects, dynamic composition. Palette: muted reds, blacks, dark blues, gold accents. Light grey background. Soft shadows for depth."
+    },
+    3: { # HR Specialist - (References your Image 5 for composition)
         "name": "HR Specialist",
-        "description": "Documents and visuals related to human resources, featuring employee profiles, organizational charts, training schedules, and diversity icons with a focus on workplace culture.",
-        "style_guideline": "Illustration in a clean, flat, and iconographic style with a light grey background, professional illustration, muted purple and beige palette."
+        "description": "Central open book showcasing employee profiles. Surrounding group of diverse professional figures. Includes organizational charts, training schedules, and diversity icons. Focus on workplace culture and teamwork.",
+        "style_guideline": "Corporate flat iconographic vector art. Vibrant, positive. Palette: muted purples, beiges, blues, and warm skin tones. Light blue gradient background. Gentle gradients for warmth."
     },
-    4: {
+    4: { # Technical Consultant - (New, aiming for structured technical elements)
         "name": "Technical Consultant",
-        "description": "Documents and visuals related to technical consulting, featuring project blueprints, technical diagrams, gear icons, and progress trackers with a focus on engineering solutions.",
-        "style_guideline": "Illustration in a clean, flat, and iconographic style with a light grey background, professional illustration, muted orange and blue palette."
+        "description": "Layered design of project blueprints, technical diagrams, and circuit patterns. Integrate gear icons and progress trackers. Emphasize engineering solutions and innovation.",
+        "style_guideline": "Corporate flat iconographic vector art. Crisp edges, geometric shapes. Palette: muted oranges, blues, greys. Light grey background with faint digital patterns. Precision and clarity."
     },
-    5: {
+    5: { # Electrical Architecture Consultant - (New, aiming for networked/circuitry)
         "name": "Electrical Architecture Consultant",
-        "description": "Documents and visuals related to electrical architecture, featuring circuit diagrams, wiring layouts, power grid illustrations, and technical schematics with a focus on electrical design.",
-        "style_guideline": "Illustration in a clean, flat, and iconographic style with a light grey background, professional illustration, muted yellow and grey palette."
+        "description": "Networked layout of circuit diagrams, wiring layouts, and power grid illustrations. Interconnected technical schematics. Highlight electrical design flow and connectivity.",
+        "style_guideline": "Corporate flat iconographic vector art. Clean lines, interconnected elements. Palette: muted yellows, deep blues, greys. Light grey background with subtle circuit patterns. Emphasis on flow and precision."
     },
-    6: {
+    6: { # Lawyer - (Adjusted to match flat, iconographic style, not realistic like your Image 4)
         "name": "Lawyer",
-        "description": "Documents and visuals related to legal practice, featuring law books, justice scales, contract clauses, and courtroom sketches with a focus on legal documentation.",
-        "style_guideline": "Illustration in a clean, flat, and iconographic style with a light grey background, professional illustration, muted black and blue palette."
+        "description": "Balanced composition: Law books, justice scales, and stylized contract clauses. A feather quill and inkwell. Focus on legal documentation and fairness.",
+        "style_guideline": "Corporate flat iconographic vector art. Classic, strong imagery. Palette: muted blacks, dark blues, browns, and gold accents. Light beige background. Subtle texture for gravitas."
     }
 }
