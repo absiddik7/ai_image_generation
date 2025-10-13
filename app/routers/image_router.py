@@ -1,6 +1,14 @@
 from fastapi import APIRouter, HTTPException
-from models.schemas import GenerateCoverRequest, GenerateCoverResponse, ImageResponse
-from utils import validate_category, generate_prompt_image_with_text, generate_prompt_image_with_no_text, generate_image, add_title_to_image
+from app.models.schemas import GenerateCoverRequest, GenerateCoverResponse, ImageResponse
+from app.utils.prompt_utils import (
+    validate_category,
+    generate_prompt_image_with_text,
+    generate_prompt_image_with_no_text
+)
+from app.utils.image_utils import (
+    add_title_to_image,
+    generate_image
+)
 import logging
 from fastapi.responses import FileResponse
 

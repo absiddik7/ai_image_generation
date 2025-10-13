@@ -1,4 +1,4 @@
-from categories import CATEGORIES
+from app.data.categories import CATEGORIES
 import logging
 from services.image_service import generate_cover_image
 import random
@@ -213,3 +213,5 @@ def generate_image(prompt: str, width: int = 864, height: int = 1152) -> str:
     except Exception as e:
         logger.error(f"Image generation failed: {e}")
         raise
+
+
