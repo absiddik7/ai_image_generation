@@ -1,78 +1,51 @@
-from app.data.categories import CATEGORIES
 import logging
 import random
+from app.services.ai_text_service import AITextService
 
 logger = logging.getLogger(__name__)
 
 
-def validate_category(category_id: int, category_name: str) -> dict:
+def generate_cover_image_prompt(category, subcategory, tertiary_category, document_title):
     """
-    Validate category_id and category_name against CATEGORIES dictionary.
+    Generate a prompt for creating a document cover image using Pollinations AI.
+
+    This function takes category, subcategory, tertiary category, and document title,
+    constructs a meta-prompt, and uses AITextService to call the Pollinations text-to-text API.
+    The image prompt ensures no text in the image and reflects the category hierarchy.
+    A random seed and temperature (0.7–1.2) are generated for each call.
 
     Args:
-        category_id (int): The ID of the category.
-        category_name (str): The name of the category.
+        category (str): The main category.
+        subcategory (str): The subcategory.
+        tertiary_category (str): The tertiary category.
+        document_title (str): The title of the document.
 
     Returns:
-        dict: Category data if valid.
+        str: The generated prompt for the cover image.
 
     Raises:
-        ValueError: If validation fails.
+        ValueError: If API request fails.
     """
-    category_data = CATEGORIES.get(category_id)
-    if not category_data or category_data.get("name") != category_name:
-        raise ValueError(
-            f"Category ID {category_id} does not match name '{category_name}' or is invalid.")
-    return category_data
+    # Generate random temperature in a constrained range for balanced creativity
+    temperature = random.uniform(0.7, 1.2)
+    # Generate random seed
+    seed = random.randint(1, 1000000)
 
+    # Meta-prompt for Pollinations AI to generate the image prompt
+    meta_prompt = (
+        f"Generate a detailed text-to-image prompt for a document cover image based on the following: "
+        f"Category: {category}, Subcategory: {subcategory}, Tertiary Category: {tertiary_category}, "
+        f"Document Title: {document_title}. "
+        "The image must visually represent the category hierarchy in a creative, abstract, or symbolic way. "
+        "Ensure the prompt specifies that the image contains absolutely no text, letters, or words. "
+        "The prompt should describe a visually appealing UI-like design for the cover, such as layouts, colors, "
+        "icons, or elements that evoke the themes of the categories without any textual elements. "
+        "Make the description vivid and suitable for an AI image generator like Stable Diffusion."
+    )
 
-def generate_prompt_image_with_text(category_data: dict, title: str, category_name: str) -> str:
-    """
-    Generate a prompt with title and category text using random descriptive elements and styles.
-
-    Args:
-        category_data (dict): Category data containing descriptive_elements and style_variations.
-        title (str): Document title.
-        category_name (str): Category name.
-
-    Returns:
-        str: Formatted prompt.
-    """
-    descriptive_element = random.choice(category_data["descriptive_elements"])
-    style_variation = random.choice(category_data["style_variations"])
-    return f"""
-                Professional document infographic thumbnail.
-                
-
-                **Main Title:** '{title}'
-                **Subtitle:** '{category_name}'
-                (Both titles in bold, black, clean sans-serif font, centered at the top of the image. Text must be perfectly rendered, fully visible, no misspellings.)
-
-                **visually represented by {descriptive_element}
-
-                **Style & Composition:** {style_variation}
-                """
-
-
-def generate_prompt_image_with_no_text(category_data: dict, category_name: str) -> str:
-    """
-    Generate a prompt without text using random descriptive elements and styles.
-
-    Args:
-        category_data (dict): Category data containing descriptive_elements and style_variations.
-        category_name (str): Category name.
-
-    Returns:
-        str: Formatted prompt.
-    """
-    descriptive_element = random.choice(category_data["descriptive_elements"])
-    style_variation = random.choice(category_data["style_variations"])
-    return f"""
-                Professional document cover illustration.
-                Ultra-high-resolution, vector art quality, crisp details, polished, corporate aesthetic.
-
-                **Visual Subject:** {category_name}, visually represented by {descriptive_element}
-
-                **Style & Composition:** {style_variation}
-                Ensure a clear, impactful, and professional design. The composition should be central and well-balanced, No text in the image, just the visual elements. 
-                """
+    # Use AITextService to call the API
+    logger.debug(f"Generating cover image prompt with category: {category}, subcategory: {subcategory}, "
+                 f"tertiary_category: {tertiary_category}, document_title: {document_title}")
+    generated_prompt = AITextService.generate_image_prompt(
+        meta_prompt, seed, temperature)
+    return generated_prompt

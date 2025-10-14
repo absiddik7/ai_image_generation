@@ -1,17 +1,62 @@
-from app.data.categories import CATEGORIES
 import logging
-from app.services.image_service import generate_cover_image
+from app.services.ai_image_service import AIImageService
 from PIL import Image, ImageDraw, ImageFont
 import requests
 import io
 import os
+import numpy as np
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+
+def get_contrast_color(background_rgb):
+    """
+    Calculate the appropriate text color based on background luminance.
+
+    Args:
+        background_rgb (tuple): RGB values of the background (R, G, B).
+
+    Returns:
+        tuple: RGB values for the text color (black or white).
+    """
+    # Calculate luminance using the formula: 0.299R + 0.587G + 0.114B
+    r, g, b = background_rgb
+    luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+    # Use white text for dark backgrounds, black for light
+    return (255, 255, 255) if luminance < 0.5 else (0, 0, 0)
+
+
+def get_background_color(image, x, y, width, height):
+    """
+    Calculate the average background color in the text area.
+
+    Args:
+        image (PIL.Image): The input image.
+        x (int): X-coordinate of the text area.
+        y (int): Y-coordinate of the text area.
+        width (int): Width of the text area.
+        height (int): Height of the text area.
+
+    Returns:
+        tuple: Average RGB color of the background.
+    """
+    # Convert image to RGB if it’s RGBA
+    if image.mode == 'RGBA':
+        image = image.convert('RGB')
+
+    # Crop the region where text will be placed
+    region = image.crop((x, y, x + width, y + height))
+    # Convert to numpy array for averaging
+    pixels = np.array(region)
+    # Calculate mean RGB values
+    avg_color = np.mean(pixels, axis=(0, 1)).astype(int)
+    return tuple(avg_color)
 
 
 def add_title_to_image(image_url: str, title: str, category_name: str, width: int = 864, height: int = 1152) -> str:
     """
-    Add title and category name to a generated image.
+    Add title and category name to a generated image with dynamic text color based on background.
 
     Args:
         image_url (str): URL of the generated image.
@@ -36,24 +81,21 @@ def add_title_to_image(image_url: str, title: str, category_name: str, width: in
         if image.size != (width, height):
             image = image.resize((width, height), Image.Resampling.LANCZOS)
 
-        # Create a drawing context
         draw = ImageDraw.Draw(image)
 
-        # Load fonts (Arial or fallback)
         try:
-            title_font = ImageFont.truetype("Arial.ttf", 48)  # Main title font
-            # Subtitle font, 24 px, non-bold
-            subtitle_font = ImageFont.truetype("Arial.ttf", 24)
+            title_font = ImageFont.truetype("Arial.ttf", 48)
+            subtitle_font = ImageFont.truetype(
+                "Arial.ttf", 24)
         except:
-            title_font = ImageFont.load_default()  # Fallback for title
-            subtitle_font = ImageFont.load_default()  # Fallback for subtitle
+            title_font = ImageFont.load_default()
+            subtitle_font = ImageFont.load_default()
             logger.warning(
                 "Falling back to default font due to Arial.ttf unavailability")
 
         # Define text and position
         main_title = title
         subtitle = category_name
-        text_color = (0, 0, 0)  # Black
         top_margin = 50
         max_title_width = 780
 
@@ -62,7 +104,6 @@ def add_title_to_image(image_url: str, title: str, category_name: str, width: in
         main_text_width = main_text_bbox[2] - main_text_bbox[0]
         if main_text_width > max_title_width:
             from textwrap import fill
-            # Adjust width parameter for wrapping
             main_title = fill(main_title, width=30)
             main_text_bbox = draw.textbbox((0, 0), main_title, font=title_font)
             main_text_width = main_text_bbox[2] - main_text_bbox[0]
@@ -74,19 +115,21 @@ def add_title_to_image(image_url: str, title: str, category_name: str, width: in
         sub_text_width = sub_text_bbox[2] - sub_text_bbox[0]
         sub_text_height = sub_text_bbox[3] - sub_text_bbox[1]
 
-        # Center within 750 px, with 57 px margin on each side of 864 px
+        # Center within 780 px, with 57 px margin on each side of 864 px
         main_x = (width - max_title_width) // 2 + \
             (max_title_width - main_text_width) // 2
         main_y = top_margin
         sub_x = (width - max_title_width) // 2 + \
             (max_title_width - sub_text_width) // 2
-        sub_y = top_margin + main_text_height + 10  # Add spacing between titles
+        sub_y = top_margin + main_text_height + 10
 
-        # Log debug information
-        logger.debug(
-            f"Main title: '{main_title}', width: {main_text_width}, height: {main_text_height}, x: {main_x}, y: {main_y}")
-        logger.debug(
-            f"Subtitle: '{subtitle}', width: {sub_text_width}, height: {sub_text_height}, x: {sub_x}, y: {sub_y}")
+        # Calculate average background color for the text areas
+        # Use the larger text area to ensure good contrast
+        text_area_width = max(main_text_width, sub_text_width)
+        text_area_height = main_text_height + sub_text_height + 10
+        bg_color = get_background_color(
+            image, main_x, main_y, text_area_width, text_area_height)
+        text_color = get_contrast_color(bg_color)
 
         # Draw main title with bold effect
         for offset in [(-1, -1), (-1, 1), (1, -1), (1, 1)]:
@@ -126,14 +169,14 @@ def generate_image(prompt: str, width: int = 864, height: int = 1152) -> str:
         Exception: If image generation fails.
     """
     try:
-        image_url = generate_cover_image(
+        image_url = AIImageService.generate_cover_image(
             prompt,
             width=width,
             height=height,
             model="flux",
             enhance=True,
             nologo=True,
-            safe=True
+            safe=True,
         )
         return image_url
     except Exception as e:
